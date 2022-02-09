@@ -1,31 +1,14 @@
 
 // function to generate a random numeric value
-var randomNumber = function(40, 60) {
-    var value = Math.floor(Math.random() *(21)) +40;
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() *(max-min +1)) +min;
 
     return value;
 };
 
 
-
-// prints 3.141592653589793
-console.log(Math.PI);
-
- // rounds to the nearest whole number (4)
-console.log(Math.round(4.4));
-
- // prints the square root (5)
-console.log(Math.sqrt(25));
-
-
-
-
-
-// fight function (now with parameter for enemy's name)
+// fight function (now with parameter for enemy's object holding name, health, and attack values)
 var fight= function(enemy) {
-    console.log(enemy);
-
-
     while (playerInfo.health > 0 && enemy.health > 0) {
         //&& can satisfy both conditions for true or false
         // ask player if they'd like to fight or run
@@ -89,9 +72,7 @@ var startGame=function(){
     // alert("The game has now ended. Let's see how you did!");
 
     // reset player stats
-    playerInfo.health = 100;
-    playerInfo.attack = 10;
-    playerInfo.money = 10;
+    playerInfo.reset();
 
     // fight each enemy-robot by looping over them and fighting them one at a time
     for (var i = 0; i < enemyInfo.length; i++) {
@@ -130,12 +111,12 @@ var startGame=function(){
         // if player isn't alive, stop the game
         else {
             window.alert("You have lost your robot in battle! Game Over!");
-            startGame();
+            break;
         }
-         // after the loop ends, player is either out of health or enemies to fight, so run the endGame function
-        endGame();
     }
-}
+    // after the loop ends, player is either out of health or enemies to fight, so run the endGame function
+    endGame();
+};
 
 
 var endGame=function(){
@@ -147,6 +128,7 @@ var endGame=function(){
     else {
         alert("You've lost your robot in battle.");
     }
+    //ask player if theyd like to play again
     var playAgainConfirm = confirm("Would you like to play again?");
 
     if(playAgainConfirm){
@@ -156,7 +138,7 @@ var endGame=function(){
     else {
         alert("Thank you for playing Robot Gladiators! Come back soon!");
     }
-}
+};
 
 
 
@@ -169,7 +151,7 @@ var shop = function(){
     switch(shopOptionPrompt){
         case "REFILL": // new case
         case "refill":
-            playerInfo.money ();
+            playerInfo.refillHealth ();
             break;
         case "UPGRADE":
         case "upgrade":
@@ -190,8 +172,11 @@ var shop = function(){
             break;
     }
 };
+/* END GAME FUNCTIONS */
 
-enemy.health = randomNumber();
+/* GAME INFO / VARIABLES */
+
+// player info
 
 var playerInfo = {
     name: prompt("What is your robot's name?"),
@@ -215,11 +200,16 @@ var playerInfo = {
         
     }, //COMMA!
     upgradeAttack: function() {
+        if (this.money >=7){
+            alert("Upgrading player's attack by 6 for 7 dollars.");
         this.attack +=6;
         this.money -=7;
+        }
     }
 };
 
+
+// enemy info
 var enemyInfo = [
     {
         name: "Roborto",
@@ -234,14 +224,12 @@ var enemyInfo = [
         attack: randomNumber (10, 14)
     }
 ];
-var enemy.names = ['Roborto', 'Amy Android', 'Robo Trumble'];
-var enemy.health = Math.floor(Math.random() * 21) + 40;
-var enemy.attack = 12;
 
-console.log(enemy.names);
-console.log(enemy.names.length);
-console.log(enemy.names[0]);
-console.log(enemy.names[1]);
-console.log(enemy.names[2]);
+
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
+
 
 startGame();
