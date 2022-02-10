@@ -9,6 +9,7 @@ var randomNumber = function(min, max) {
 
 // fight function (now with parameter for enemy's object holding name, health, and attack values)
 var fight= function(enemy) {
+    
     while (playerInfo.health > 0 && enemy.health > 0) {
         //&& can satisfy both conditions for true or false
         // ask player if they'd like to fight or run
@@ -69,6 +70,7 @@ var fight= function(enemy) {
 };
 
 var startGame=function(){
+    
     // alert("The game has now ended. Let's see how you did!");
 
     // reset player stats
@@ -82,6 +84,7 @@ var startGame=function(){
 
             // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
             window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
+            
             // the () in the alert above lets arithmetic operation to perform then concentrate its sum to the rest. just like normal math
             // i does not add the one unless there are ()
 
@@ -97,7 +100,7 @@ var startGame=function(){
             // pass the pickedenemy.name variable's value into the fight function, where it will assume the value of the enemy.name parameter
             fight(pickedEnemyObj);
                 // if we're not at the last enemy in the array
-                if (playerInfo.health > 0 && i < enemy.names.length - 1){
+                if (playerInfo.health > 0 && i < enemyInfo.length - 1){ 
                     //ask if the player wants to use the store before the next round
                     var storeConfirm = confirm("The fight is over, visit the store before the next round?");
                 
@@ -176,13 +179,23 @@ var shop = function(){
 
 /* GAME INFO / VARIABLES */
 
+// function to set name
+var getPlayerName = function() {
+    var name = "";
+        while (name === "" || name === null) {
+            name= prompt("What is your robot's name?");
+        }  
+    console.log("Your robot's name is " + name);
+    return name;
+};
+
 // player info
 
 var playerInfo = {
-    name: prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
-    money: 10
+    money: 10,
     reset: function() {
         this.health = 100;
         this.money = 10;
@@ -232,4 +245,4 @@ console.log(enemyInfo[0].name);
 console.log(enemyInfo[0]['attack']);
 
 
-startGame();
+// startGame();
